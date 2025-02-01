@@ -1,33 +1,28 @@
-import React from 'react'
-import Navbar from './components/navbar/navbar'
-import Sidebar from './components/sidebar/sidebar'
-import {Route, Routes} from 'react-router-dom'
-import Add from './pages/Add/Add'
-import List from './pages/list/List'
-import Order from './pages/Order/Order'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react'
+import Navbar from './Components/Navbar/Navbar'
+import { Route, Routes } from 'react-router-dom'
+import PlaceOrder from './Pages/PlaceOrder/PlaceOrder'
+import Home from './Pages/Home/Home'
+import Cart from './Pages/Cart/Cart'
+import Footer from './Components/Footer/Footer'
+import LoginPopup from './Components/LoginPopup/LoginPopup'
+import MyOrder from './Pages/MyOrders/MyOrder'
 
-const App = () => {
-
-  const url = "http://localhost:400"
+export default function App({}) {
+  const[showLogin,setShowLogin] = useState(false)
   return (
-    <div>
-      <ToastContainer/>
-      <Navbar/>
-      <hr/>
-      <div className="app-content">
-        <Sidebar/>
-     <Routes>
-      <Route path='/add' element={<Add url={url}/>}/>
-      <Route path='/list' element={<List url={url}/>}/>
-      <Route path='/order' element={<Order url={url}/>}/>
-
-
-     </Routes>
-      </div>
+    <>
+    {showLogin?<LoginPopup setShowLogin={setShowLogin}/> :<> </>}
+    <div className='app'>
+      <Navbar setShowLogin={setShowLogin}/>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='/cart' element={<Cart/>} />
+        <Route path='/order' element={<PlaceOrder/>} />
+        <Route path='/myorder' element={<MyOrder/>} />
+      </Routes>
     </div>
+    <Footer />
+    </>
   )
 }
-
-export default App
